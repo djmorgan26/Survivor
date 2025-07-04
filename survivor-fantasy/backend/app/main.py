@@ -1,25 +1,39 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.api.auth import auth_router, register_router, users_router, reset_password_router, router as custom_auth_router
+from app.core.config import settings
+from app.api.auth import router as auth_router
 
-app = FastAPI(title="Survivor Fantasy League API")
+app = FastAPI(
+    title="Survivor Fantasy League API",
+    description="Fantasy sports platform for CBS Survivor fans",
+    version="1.0.0"
+)
 
-# Add CORS for React frontend
+# CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=settings.CORS_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Include auth routes
+# Include routers
 app.include_router(auth_router, prefix="/auth", tags=["auth"])
-app.include_router(register_router, prefix="/auth", tags=["auth"])
-app.include_router(users_router, prefix="/users", tags=["users"])
-app.include_router(reset_password_router, prefix="/auth", tags=["auth"])
-app.include_router(custom_auth_router, prefix="/auth", tags=["auth"])
 
-@app.get("/")
+# Root endpoints
+@app.get("/", tags=["root"])
 async def root():
-    return {"message": "Survivor Fantasy League API is running!"}
+    return {
+        "message": "Survivor Fantasy League API is running!",
+        "version": "1.0.0",
+        "docs": "/docs",
+        "status": "healthy"
+    }
+
+@app.get("/health", tags=["health"])
+async def health():
+    return {
+        "status": "healthy",
+        "service": "survivor-fantasy-api"
+    }
