@@ -1,27 +1,35 @@
 from pydantic import BaseModel, EmailStr
-from typing import List, Optional
+from typing import Optional
 from datetime import datetime
+from fastapi_users.schemas import BaseUser, BaseUserCreate, BaseUserUpdate
 
-class UserBase(BaseModel):
-    email: EmailStr
+# FastAPI-Users compatible schemas
+class UserRead(BaseUser[int]):
     username: str
-    first_name: str
-    last_name: str
-
-class UserCreate(UserBase):
-    password: str
-
-class UserUpdate(UserBase):
-    password: Optional[str] = None
-
-class UserInDB(UserBase):
-    id: int
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None
     is_admin: bool = False
+    created_at: Optional[datetime] = None
+
+class UserCreate(BaseUserCreate):
+    username: str
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None
+
+class UserUpdate(BaseUserUpdate):
+    username: Optional[str] = None
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None
+
+# Additional schemas for your app logic
+class UserProfile(BaseModel):
+    id: int
+    username: str
+    first_name: Optional[str]
+    last_name: Optional[str]
+    email: str
+    is_admin: bool
     created_at: datetime
-
+    
     class Config:
-        orm_mode = True
-
-class User(UserInDB):
-    leagues_owned: List[int] = []
-    teams: List[int] = []
+        from_attributes = True  # Updated for Pydantic v2
