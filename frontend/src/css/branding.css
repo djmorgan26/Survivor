@@ -1,0 +1,45 @@
+/* Modern branding and header styles for Survivor Fantasy League */
+
+.survivor-header {
+  font-family: 'Montserrat', Arial Black, Arial, sans-serif;
+  font-size: 2.8rem;
+  color: #fbbf24;
+  text-shadow: 0 4px 24px rgba(37,99,235,0.18), 0 1px 0 #fff;
+  letter-spacing: 0.06em;
+  font-weight: 900;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(90deg, #2563eb 0%, #fbbf24 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: color 0.3s;
+}
+
+.survivor-header:hover {
+  color: #7c3aed;
+  -webkit-text-fill-color: #7c3aed;
+}
+
+.survivor-subtitle {
+  font-size: 1.35rem;
+  color: #a5b4fc;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.03em;
+}
+
+.survivor-card {
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 40px 0 rgba(124,58,237,0.10);
+  background: rgba(255,255,255,0.10);
+  padding: 2.5rem 2rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: box-shadow 0.2s, background 0.2s;
+  backdrop-filter: blur(8px);
+}
+
+.survivor-card:hover {
+  box-shadow: 0 16px 64px 0 rgba(37,99,235,0.18);
+  background: rgba(124,58,237,0.12);
+}

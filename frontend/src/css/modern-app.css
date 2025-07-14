@@ -1,0 +1,160 @@
+/* General Reset for App */
+body, html, #root {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  box-sizing: border-box;
+  min-width: 100vw;
+  min-height: 100vh;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* Homepage Container */
+.homepage, .profile-homepage {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-width: 100vw;
+  width: 100vw;
+  flex: 1;
+}
+
+/* Header */
+.header, .profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #282c34;
+  color: white;
+}
+
+.logo, .profile-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.nav a, .profile-nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 1rem;
+  transition: color 0.3s;
+}
+
+.nav a:hover, .profile-nav a:hover {
+  color: #61dafb;
+}
+
+/* Main Content */
+.main, .profile-main {
+  flex: 1;
+  padding: 2rem;
+  text-align: center;
+}
+
+.hero, .profile-hero {
+  background: linear-gradient(135deg, #61dafb, #282c34);
+  color: white;
+  padding: 3rem 1rem;
+  border-radius: 8px;
+}
+
+.hero h2, .profile-hero h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.hero p, .profile-hero p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.cta-button {
+  background-color: #61dafb;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+  background-color: #21a1f1;
+}
+
+/* Features Section */
+.features, .profile-features {
+  margin-top: 2rem;
+}
+
+.features h3, .profile-features h3 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.features ul {
+  list-style: none;
+  padding: 0;
+}
+
+.features li {
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+}
+
+/* Footer */
+.footer, .profile-footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: #282c34;
+  color: white;
+  font-size: 0.9rem;
+}
+
+/* Card Styles for Consistency */
+.card, .profile-favorite-card {
+  background: #222b3a;
+  color: #e0e7ef;
+  border-radius: 8px;
+  padding: 1.5rem 1rem;
+  margin: 0 auto 1.5rem auto;
+  max-width: 350px;
+  box-shadow: 0 2px 16px 0 #0002;
+}
+
+.profile-favorite-name {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #61dafb;
+  margin-bottom: 0.5rem;
+}
+
+.profile-favorite-occupation {
+  color: #a5b4fc;
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
+}
+
+.profile-favorite-tribe {
+  color: #fbbf24;
+  font-size: 0.95rem;
+  margin-bottom: 0.3rem;
+}
+
+.profile-favorite-result {
+  color: #f472b6;
+  font-size: 0.95rem;
+}
+
+.profile-loading {
+  color: #61dafb;
+  font-weight: 500;
+}
+
+.profile-error {
+  color: #f87171;
+  font-weight: 500;
+}

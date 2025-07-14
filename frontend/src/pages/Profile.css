@@ -1,0 +1,123 @@
+/* General Reset for Profile Page */
+.profile-homepage {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #1e293b, #6366f1 80%);
+}
+
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #282c34;
+  color: white;
+}
+
+.profile-logo {
+  font-size: 1.7rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.profile-nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 1rem;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.profile-nav a:hover {
+  color: #61dafb;
+}
+
+.profile-main {
+  flex: 1;
+  padding: 2rem;
+  text-align: center;
+}
+
+.profile-hero {
+  background: linear-gradient(135deg, #61dafb, #282c34);
+  color: white;
+  padding: 2.5rem 1rem 2rem 1rem;
+  border-radius: 10px;
+  margin-bottom: 2.5rem;
+}
+
+.profile-hero h2 {
+  font-size: 2.2rem;
+  margin-bottom: 0.7rem;
+}
+
+.profile-hero p {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.profile-features {
+  margin-top: 2rem;
+}
+
+.profile-features h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1.2rem;
+  color: #61dafb;
+}
+
+.profile-loading {
+  color: #61dafb;
+  font-weight: 500;
+}
+
+.profile-error {
+  color: #f87171;
+  font-weight: 500;
+}
+
+.profile-favorite-card {
+  background: #222b3a;
+  color: #e0e7ef;
+  border-radius: 8px;
+  padding: 1.5rem 1rem;
+  margin: 0 auto;
+  max-width: 350px;
+  box-shadow: 0 2px 16px 0 #0002;
+  margin-bottom: 1.5rem;
+}
+
+.profile-favorite-name {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #61dafb;
+  margin-bottom: 0.5rem;
+}
+
+.profile-favorite-occupation {
+  color: #a5b4fc;
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
+}
+
+.profile-favorite-tribe {
+  color: #fbbf24;
+  font-size: 0.95rem;
+  margin-bottom: 0.3rem;
+}
+
+.profile-favorite-result {
+  color: #f472b6;
+  font-size: 0.95rem;
+}
+
+.profile-footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: #282c34;
+  color: white;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+}
