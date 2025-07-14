@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import type { ReactNode } from "react";
 import axios from "axios";
+import { buildAuthUrl } from "../config/api";
 
 interface User {
   id: number;
@@ -32,7 +33,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (storedToken) {
       setToken(storedToken);
       axios
-        .get("http://localhost:8000/auth/me", {
+        .get(buildAuthUrl("/auth/me"), {
           headers: { Authorization: `Bearer ${storedToken}` },
         })
         .then((res) => setUser(res.data))
@@ -57,7 +58,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const login = async (email: string, password: string) => {
     setLoading(true);
     try {
-      const res = await axios.post("http://localhost:8000/auth/login", {
+      const res = await axios.post(buildAuthUrl("/auth/login"), {
         email,
         password,
       });
@@ -65,7 +66,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       localStorage.setItem("token", res.data.access_token);
       // Fetch user info
       try {
-        const userRes = await axios.get("http://localhost:8000/auth/me", {
+        const userRes = await axios.get(buildAuthUrl("/auth/me"), {
           headers: { Authorization: `Bearer ${res.data.access_token}` },
         });
         setUser(userRes.data);

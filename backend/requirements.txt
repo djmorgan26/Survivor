@@ -7,7 +7,7 @@ asyncpg==0.30.0
 bcrypt==4.3.0
 certifi==2025.6.15
 cffi==1.17.1
-click==8.2.1
+click==8.1.8
 cryptography==45.0.5
 dnspython==2.7.0
 ecdsa==0.19.1
@@ -43,3 +43,4 @@ typing-inspection==0.4.1
 typing_extensions==4.14.1
 uvicorn==0.35.0
 aiohttp
+psycopg2-binary

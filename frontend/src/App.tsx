@@ -20,6 +20,7 @@ import BigBrotherPage from "./pages/BigBrother";
 import TraitorsPage from "./pages/Traitors";
 import LeagueDetails from "./pages/LeagueDetails";
 import PublicProfile from "./pages/PublicProfile";
+import AuthDebug from "./pages/AuthDebug";
 
 function ShowRedirect() {
   const location = useLocation();
@@ -51,6 +52,7 @@ function App() {
           <Route path="/bigbrother" element={<BigBrotherPage />} />
           <Route path="/traitors" element={<TraitorsPage />} />
           <Route path="/users/:userId" element={<PublicProfile />} />
+          <Route path="/auth-debug" element={<AuthDebug />} />
         </Routes>
       </Layout>
     </Router>

@@ -11,4 +11,5 @@ export interface UserPublicProfile {
   display_name?: string; // For display in UI
   is_active?: boolean;
   is_verified?: boolean;
+  bio?: string; // User bio
 }

@@ -1,7 +1,8 @@
 // src/api/LeagueAPI.ts
 import type { LeagueOut, LeagueMembershipOut } from "../types/league";
+import { buildApiUrl } from "../config/api";
 
-const BASE_URL = "/api/leagues";
+const BASE_URL = buildApiUrl("/api/leagues");
 
 export async function getLeagues(token: string): Promise<LeagueOut[]> {
   const res = await fetch(BASE_URL + "/", {

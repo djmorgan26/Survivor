@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 import "../css/branding.css";
+import { buildAuthUrl } from "../config/api";
 
 // Email regex for basic format validation
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -28,7 +29,7 @@ export default function Register() {
       return;
     }
     try {
-      const res = await fetch("/api/auth/register", {
+      const res = await fetch(buildAuthUrl("/auth/register"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, username, password }),
