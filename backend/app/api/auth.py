@@ -138,6 +138,43 @@ async def get_current_admin_user(current_user: User = Depends(get_current_active
         )
     return current_user
 
+# Optional authentication - for development
+async def get_current_user_optional(
+    credentials: HTTPAuthorizationCredentials = Depends(security),
+    session: AsyncSession = Depends(get_async_session)
+) -> User | None:
+    """Get current user, but return None if auth is disabled or fails"""
+    from app.core.config import settings
+
+    # If auth is disabled, return None (no user required)
+    if settings.DISABLE_AUTH:
+        return None
+
+    try:
+        return await get_current_user(credentials, session)
+    except HTTPException:
+        return None
+
+async def get_current_user_or_bypass(
+    session: AsyncSession = Depends(get_async_session)
+) -> User | None:
+    """
+    Development mode: Bypass authentication entirely
+    Returns None when DISABLE_AUTH=True, otherwise requires auth
+    """
+    from app.core.config import settings
+
+    if settings.DISABLE_AUTH:
+        logging.warning("⚠️  Authentication is DISABLED (dev mode)")
+        return None
+
+    # This will fail if no auth header provided
+    raise HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Authentication required (set DISABLE_AUTH=True in .env for dev mode)",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+
 # Helper function to convert user to response
 def user_to_response(user: User) -> UserResponse:
     return UserResponse(

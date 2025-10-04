@@ -1,11 +1,8 @@
 import { useAuth } from "../context/AuthContext";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import "../css/modern-app.css";
 import survivorFrame from "../assets/survivor_frame.webp";
-import bigBrotherFrame from "../assets/big_brother_frame.jpg";
-import loveIslandFrame from "../assets/love_island_frame.jpg";
-import theTraitorsFrame from "../assets/the_traitors_frame.jpg";
 
 interface DashboardStats {
   leagues_joined: number;
@@ -21,50 +18,6 @@ export default function Dashboard() {
     rank: "-",
   });
 
-  // --- Gallery Carousel Logic ---
-  const galleryImages = [
-    {
-      src: survivorFrame,
-      alt: "Survivor Island",
-      label: "Survivor",
-    },
-    {
-      src: loveIslandFrame,
-      alt: "Love Island Beach",
-      label: "Love Island",
-    },
-    {
-      src: bigBrotherFrame,
-      alt: "Big Brother House",
-      label: "Big Brother",
-    },
-    {
-      src: theTraitorsFrame,
-      alt: "The Traitors Castle",
-      label: "The Traitors",
-    },
-    // Add your own assets here!
-  ];
-  const [current, setCurrent] = useState(0);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
-
-  // Auto-advance every 2 seconds
-  useEffect(() => {
-    if (intervalRef.current) clearInterval(intervalRef.current);
-    intervalRef.current = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % galleryImages.length);
-    }, 2000);
-    return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-    };
-  }, [galleryImages.length]);
-
-  // Manual navigation
-  const goNext = () => setCurrent((prev) => (prev + 1) % galleryImages.length);
-  const goPrev = () =>
-    setCurrent(
-      (prev) => (prev - 1 + galleryImages.length) % galleryImages.length
-    );
 
   useEffect(() => {
     async function fetchStats() {
@@ -94,9 +47,9 @@ export default function Dashboard() {
       }}
     >
       <Header user={user} token={token} logout={logout} />
-      {/* --- Gallery Carousel Section --- */}
+      {/* --- Hero Section --- */}
       <section
-        className="gallery-carousel"
+        className="hero-section"
         style={{
           width: "100%",
           maxWidth: 1100,
@@ -148,15 +101,13 @@ export default function Dashboard() {
           }}
         >
           <img
-            src={galleryImages[current].src}
-            alt={galleryImages[current].alt}
+            src={survivorFrame}
+            alt="Survivor"
             style={{
               width: "100%",
               height: "100%",
               objectFit: "cover",
               borderRadius: 16,
-              transition: "opacity 0.5s cubic-bezier(.4,0,.2,1)",
-              opacity: 1,
               minHeight: 180,
               maxHeight: 340,
               background: "#23232b",
@@ -166,7 +117,7 @@ export default function Dashboard() {
             }}
             draggable={false}
           />
-          {/* Label overlay always inside image for all screens */}
+          {/* Label overlay */}
           <div
             style={{
               position: "absolute",
@@ -186,104 +137,11 @@ export default function Dashboard() {
               boxShadow: "0 2px 8px #0006",
             }}
           >
-            {galleryImages[current].label}
+            Survivor Fantasy League
           </div>
-          {/* Prev Arrow */}
-          <button
-            aria-label="Previous"
-            onClick={() => {
-              goPrev();
-              intervalRef.current && clearInterval(intervalRef.current);
-            }}
-            style={{
-              position: "absolute",
-              left: 12,
-              top: "50%",
-              transform: "translateY(-50%)",
-              background: "rgba(24,24,28,0.7)",
-              border: "none",
-              borderRadius: "50%",
-              color: "#fff",
-              fontSize: 28,
-              width: 44,
-              height: 44,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              cursor: "pointer",
-              zIndex: 2,
-              boxShadow: "0 2px 8px #0006",
-              transition: "background 0.2s",
-            }}
-          >
-            &#8592;
-          </button>
-          {/* Next Arrow */}
-          <button
-            aria-label="Next"
-            onClick={() => {
-              goNext();
-              intervalRef.current && clearInterval(intervalRef.current);
-            }}
-            style={{
-              position: "absolute",
-              right: 12,
-              top: "50%",
-              transform: "translateY(-50%)",
-              background: "rgba(24,24,28,0.7)",
-              border: "none",
-              borderRadius: "50%",
-              color: "#fff",
-              fontSize: 28,
-              width: 44,
-              height: 44,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              cursor: "pointer",
-              zIndex: 2,
-              boxShadow: "0 2px 8px #0006",
-              transition: "background 0.2s",
-            }}
-          >
-            &#8594;
-          </button>
-        </div>
-        {/* Dots for navigation */}
-        <div
-          style={{
-            display: "flex",
-            gap: 10,
-            marginTop: 18,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          {galleryImages.map((img, idx) => (
-            <button
-              key={img.label}
-              aria-label={`Go to slide ${idx + 1}`}
-              onClick={() => {
-                setCurrent(idx);
-                intervalRef.current && clearInterval(intervalRef.current);
-              }}
-              style={{
-                width: 13,
-                height: 13,
-                borderRadius: "50%",
-                border: "none",
-                background: idx === current ? "#3b82f6" : "#444",
-                opacity: idx === current ? 1 : 0.5,
-                cursor: "pointer",
-                transition: "background 0.2s, opacity 0.2s",
-                margin: 0,
-                padding: 0,
-              }}
-            />
-          ))}
         </div>
       </section>
-      {/* --- End Gallery Carousel --- */}
+      {/* --- End Hero Section --- */}
       <main
         className="main"
         style={{

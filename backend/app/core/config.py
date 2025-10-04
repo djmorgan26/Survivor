@@ -43,7 +43,10 @@ class Settings(BaseSettings):
     
     # Environment
     ENVIRONMENT: str = Field(default="development", env="ENVIRONMENT")
-    
+
+    # Development Settings
+    DISABLE_AUTH: bool = Field(default=False, env="DISABLE_AUTH", description="Bypass authentication for development")
+
     class Config:
         env_file = ".env"
         case_sensitive = True

@@ -1,5 +1,5 @@
 // src/types/league.ts
-export type GameType = "survivor" | "love_island" | "big_brother" | "traitors";
+export type GameType = "survivor";
 export type MemberRole = "owner" | "admin" | "member";
 
 export interface LeagueSettingsOut {

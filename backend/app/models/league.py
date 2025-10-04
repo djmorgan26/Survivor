@@ -7,9 +7,6 @@ import secrets
 
 class GameType(enum.Enum):
     survivor = "survivor"
-    love_island = "love_island"
-    big_brother = "big_brother"
-    traitors = "traitors"
 
 class MemberRole(enum.Enum):
     owner = "owner"
