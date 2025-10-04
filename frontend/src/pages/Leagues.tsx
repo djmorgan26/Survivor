@@ -13,9 +13,7 @@ export default function Leagues() {
   const [leagueError, setLeagueError] = useState("");
   const [joinCode, setJoinCode] = useState("");
   const [createName, setCreateName] = useState("");
-  const [createType, setCreateType] = useState<
-    "survivor" | "love_island" | "big_brother" | "traitors"
-  >("survivor");
+  const [createType, setCreateType] = useState<"survivor">("survivor");
   const [createError, setCreateError] = useState("");
   const [joinError, setJoinError] = useState("");
   const navigate = useNavigate();
@@ -320,9 +318,6 @@ export default function Leagues() {
               }}
             >
               <option value="survivor">Survivor</option>
-              <option value="love_island">Love Island</option>
-              <option value="big_brother">Big Brother</option>
-              <option value="traitors">The Traitors</option>
             </select>
             <button
               type="submit"
@@ -387,14 +382,7 @@ export default function Leagues() {
                 <div
                   key={league.id}
                   style={{
-                    background:
-                      league.game_type === "survivor"
-                        ? "linear-gradient(135deg, #23232b 60%, #3b82f6 120%)"
-                        : league.game_type === "love_island"
-                        ? "linear-gradient(135deg, #23232b 60%, #06b6d4 120%)"
-                        : league.game_type === "big_brother"
-                        ? "linear-gradient(135deg, #23232b 60%, #f59e42 120%)"
-                        : "linear-gradient(135deg, #23232b 60%, #a855f7 120%)",
+                    background: "linear-gradient(135deg, #23232b 60%, #3b82f6 120%)",
                     borderRadius: 12,
                     padding: "1.2rem 1.5rem",
                     minWidth: 220,

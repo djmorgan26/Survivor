@@ -7,26 +7,8 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ user, token, logout }) => {
-  const [showMenuOpen, setShowMenuOpen] = useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
-  const [selectedShow, setSelectedShow] = useState("survivor");
-
-  const shows = [
-    { id: "survivor", label: "Survivor" },
-    { id: "loveisland", label: "Love Island" },
-    { id: "bigbrother", label: "Big Brother" },
-    { id: "traitors", label: "The Traitors" },
-    // Add more shows as needed
-  ];
-
-  const handleShowSelect = (showId: string) => {
-    setSelectedShow(showId);
-    setShowMenuOpen(false);
-    setMobileNavOpen(false);
-    // Route to show-specific dashboard
-    window.location.href = `/dashboard?show=${showId}`;
-  };
 
   // Responsive styles
   const headerStyle: React.CSSProperties = {
@@ -116,7 +98,7 @@ const Header: React.FC<HeaderProps> = ({ user, token, logout }) => {
               }}
               onClick={() => (window.location.href = "/")}
             >
-              Reality Fantasy League
+              Survivor Fantasy League
             </h1>
             <nav className="header-nav" style={navStyle}>
               <a
@@ -171,73 +153,6 @@ const Header: React.FC<HeaderProps> = ({ user, token, logout }) => {
               >
                 Profile
               </a>
-              {/* Reality Show Selector (no border, no icon) */}
-              <div style={{ position: "relative", marginLeft: 16 }}>
-                <button
-                  style={{
-                    background: "none",
-                    color: "#3b82f6",
-                    border: "none",
-                    borderRadius: 0,
-                    fontWeight: 700,
-                    padding: 0,
-                    cursor: "pointer",
-                    fontSize: "1rem",
-                    marginLeft: 0,
-                    transition: "color 0.2s",
-                    boxShadow: "none",
-                    display: "inline",
-                  }}
-                  onClick={() => setShowMenuOpen((v) => !v)}
-                  onBlur={() => setTimeout(() => setShowMenuOpen(false), 150)}
-                  tabIndex={0}
-                  aria-haspopup="listbox"
-                  aria-expanded={showMenuOpen}
-                >
-                  Reality Show
-                </button>
-                {showMenuOpen && (
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: "120%",
-                      left: 0,
-                      background: "#23232b",
-                      borderRadius: 8,
-                      boxShadow: "0 2px 12px #0007",
-                      minWidth: 180,
-                      zIndex: 99999,
-                      padding: 0,
-                      marginTop: 4,
-                    }}
-                    role="listbox"
-                  >
-                    {shows.map((show) => (
-                      <button
-                        key={show.id}
-                        onClick={() => handleShowSelect(show.id)}
-                        style={{
-                          width: "100%",
-                          background: "none",
-                          border: "none",
-                          color: show.id === selectedShow ? "#3b82f6" : "#fff",
-                          fontWeight: show.id === selectedShow ? 700 : 600,
-                          padding: "0.8rem 1.2rem",
-                          textAlign: "left",
-                          borderRadius: 8,
-                          cursor: "pointer",
-                          fontSize: "1rem",
-                          transition: "background 0.2s, color 0.2s",
-                          backgroundColor:
-                            show.id === selectedShow ? "#18181c" : "none",
-                        }}
-                      >
-                        {show.label}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
             </nav>
           </div>
           <button
@@ -309,74 +224,6 @@ const Header: React.FC<HeaderProps> = ({ user, token, logout }) => {
           >
             Profile
           </a>
-          <div style={{ position: "relative", width: "100%" }}>
-            <button
-              style={{
-                background: "#23232b",
-                color: "#fff",
-                border: "none",
-                borderRadius: 6,
-                fontWeight: 700,
-                padding: "0.7rem 1.1rem",
-                cursor: "pointer",
-                fontSize: "1.1rem",
-                margin: "8px 0 0 0",
-                width: "100%",
-                display: "flex",
-                alignItems: "center",
-                gap: 8,
-              }}
-              onClick={() => setShowMenuOpen((v) => !v)}
-              tabIndex={0}
-              aria-haspopup="listbox"
-              aria-expanded={showMenuOpen}
-            >
-              <span style={{ fontWeight: 700, color: "#3b82f6" }}>
-                Reality Show
-              </span>
-              <span style={{ fontSize: 18, color: "#bfc4d1" }}>▼</span>
-            </button>
-            {showMenuOpen && (
-              <div
-                style={{
-                  position: "relative",
-                  background: "#23232b",
-                  borderRadius: 8,
-                  boxShadow: "0 2px 12px #0007",
-                  minWidth: 180,
-                  zIndex: 10,
-                  padding: 0,
-                  marginTop: 4,
-                  width: "100%",
-                }}
-                role="listbox"
-              >
-                {shows.map((show) => (
-                  <button
-                    key={show.id}
-                    onClick={() => handleShowSelect(show.id)}
-                    style={{
-                      width: "100%",
-                      background: "none",
-                      border: "none",
-                      color: show.id === selectedShow ? "#3b82f6" : "#fff",
-                      fontWeight: show.id === selectedShow ? 700 : 600,
-                      padding: "0.8rem 1.2rem",
-                      textAlign: "left",
-                      borderRadius: 8,
-                      cursor: "pointer",
-                      fontSize: "1rem",
-                      transition: "background 0.2s, color 0.2s",
-                      backgroundColor:
-                        show.id === selectedShow ? "#18181c" : "none",
-                    }}
-                  >
-                    {show.label}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
           {user && token ? (
             <button
               onClick={() => {

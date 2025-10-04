@@ -142,7 +142,7 @@ async def get_current_admin_user(current_user: User = Depends(get_current_active
 async def get_current_user_optional(
     credentials: HTTPAuthorizationCredentials = Depends(security),
     session: AsyncSession = Depends(get_async_session)
-) -> User | None:
+) -> Optional[User]:
     """Get current user, but return None if auth is disabled or fails"""
     from app.core.config import settings
 
@@ -157,7 +157,7 @@ async def get_current_user_optional(
 
 async def get_current_user_or_bypass(
     session: AsyncSession = Depends(get_async_session)
-) -> User | None:
+) -> Optional[User]:
     """
     Development mode: Bypass authentication entirely
     Returns None when DISABLE_AUTH=True, otherwise requires auth
