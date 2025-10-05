@@ -6,7 +6,7 @@ from app.core.database import get_async_session
 from app.models.league import League, LeagueMembership, LeagueSettings, GameType, MemberRole
 from app.models.user import User
 from app.schemas.league import LeagueCreate, LeagueOut, LeagueMembershipOut
-from app.api.auth import get_current_user  # fixed import
+from app.api.auth import get_current_user, get_current_user_or_bypass
 
 router = APIRouter(prefix="/leagues", tags=["leagues"])
 
@@ -36,7 +36,11 @@ async def create_league(league: LeagueCreate, db: AsyncSession = Depends(get_asy
     return new_league
 
 @router.get("/", response_model=List[LeagueOut])
-async def list_leagues(game_type: Optional[GameType] = None, db: AsyncSession = Depends(get_async_session)):
+async def list_leagues(
+    game_type: Optional[GameType] = None,
+    db: AsyncSession = Depends(get_async_session),
+    current_user: Optional[User] = Depends(get_current_user_or_bypass)
+):
     stmt = select(League)
     if game_type:
         stmt = stmt.where(League.game_type == game_type)
@@ -45,7 +49,11 @@ async def list_leagues(game_type: Optional[GameType] = None, db: AsyncSession = 
     return leagues
 
 @router.get("/{league_id}", response_model=LeagueOut)
-async def get_league(league_id: int, db: AsyncSession = Depends(get_async_session)):
+async def get_league(
+    league_id: int,
+    db: AsyncSession = Depends(get_async_session),
+    current_user: Optional[User] = Depends(get_current_user_or_bypass)
+):
     league = await db.get(League, league_id)
     if not league:
         raise HTTPException(status_code=404, detail="League not found")
@@ -139,7 +147,11 @@ async def remove_member(league_id: int, user_id: int, db: AsyncSession = Depends
     return {"detail": "Member removed"}
 
 @router.get("/{league_id}/members", response_model=List[LeagueMembershipOut])
-async def list_members(league_id: int, db: AsyncSession = Depends(get_async_session)):
+async def list_members(
+    league_id: int,
+    db: AsyncSession = Depends(get_async_session),
+    current_user: Optional[User] = Depends(get_current_user_or_bypass)
+):
     stmt = select(LeagueMembership).where(LeagueMembership.league_id == league_id)
     result = await db.execute(stmt)
     return result.scalars().all()

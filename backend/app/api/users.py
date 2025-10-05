@@ -7,11 +7,11 @@ from app.models.user import User
 from app.models.league import League, LeagueMembership
 from app.schemas.user import UserProfile
 from app.schemas.league import LeagueOut
-from app.api.auth import get_current_user
+from app.api.auth import get_current_user, get_current_user_or_bypass
 from pydantic import BaseModel
 import os
 from uuid import uuid4
-from typing import List
+from typing import List, Optional
 
 router = APIRouter()
 
@@ -22,7 +22,11 @@ class BioUpdate(BaseModel):
     bio: str
 
 @router.get("/users/{user_id}/public", response_model=UserProfile)
-async def get_public_user_profile(user_id: int, db: AsyncSession = Depends(get_async_session)):
+async def get_public_user_profile(
+    user_id: int,
+    db: AsyncSession = Depends(get_async_session),
+    current_user: Optional[User] = Depends(get_current_user_or_bypass)
+):
     result = await db.execute(
         User.__table__.select().where(User.id == user_id)
     )
@@ -98,7 +102,11 @@ async def update_user_bio(
     )
 
 @router.get("/users/{user_id}/leagues", response_model=List[LeagueOut])
-async def get_user_leagues(user_id: int, db: AsyncSession = Depends(get_async_session)):
+async def get_user_leagues(
+    user_id: int,
+    db: AsyncSession = Depends(get_async_session),
+    current_user: Optional[User] = Depends(get_current_user_or_bypass)
+):
     """Get all leagues that a user is a member of"""
     # First check if user exists
     user_result = await db.execute(
@@ -106,12 +114,12 @@ async def get_user_leagues(user_id: int, db: AsyncSession = Depends(get_async_se
     )
     if not user_result.fetchone():
         raise HTTPException(status_code=404, detail="User not found")
-    
+
     # Get user's league memberships with league details
     stmt = select(League).join(LeagueMembership).where(LeagueMembership.user_id == user_id)
     result = await db.execute(stmt)
     leagues = result.scalars().all()
-    
+
     return leagues
 
 @router.post("/users/{user_id}/profile_picture", status_code=status.HTTP_200_OK)
