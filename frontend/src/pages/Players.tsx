@@ -70,19 +70,19 @@ export default function Players() {
     fetchPlayers();
   }, [season, version]);
 
-  useEffect(() => {
-    // Only redirect if token is missing and not loading, and only after seasons are loaded
-    if (!token && !loading && seasons.length > 0) {
-      setRedirecting(true);
-      setTimeout(() => {
-        window.location.href = "/login";
-      }, 1800);
-    }
-  }, [token, loading, seasons]);
+  // Auth bypass enabled on backend - no redirect needed
+  // useEffect(() => {
+  //   if (!token && !loading && seasons.length > 0) {
+  //     setRedirecting(true);
+  //     setTimeout(() => {
+  //       window.location.href = "/login";
+  //     }, 1800);
+  //   }
+  // }, [token, loading, seasons]);
 
-  if (redirecting) {
-    return <TransitionSkeleton />;
-  }
+  // if (redirecting) {
+  //   return <TransitionSkeleton />;
+  // }
 
   return (
     <div

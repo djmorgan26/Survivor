@@ -55,6 +55,7 @@ class Settings(BaseSettings):
 # Global settings instance
 settings = Settings()
 print("DATABASE_URL in use:", settings.DATABASE_URL)
+print("DISABLE_AUTH in use:", settings.DISABLE_AUTH)
 
 # Helper function for database URL
 def get_database_url() -> str:

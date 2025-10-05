@@ -6,6 +6,7 @@ from app.api.auth import router as auth_router
 from app.api.survivor import router as survivor_router
 from app.api.leagues import router as leagues_router
 from app.api.users import router as users_router
+from app.api.players import router as players_router
 
 app = FastAPI(
     title="Survivor Fantasy League API",
@@ -30,6 +31,7 @@ app.include_router(auth_router, prefix="/auth", tags=["auth"])
 app.include_router(survivor_router, prefix="/api", tags=["survivor"])
 app.include_router(leagues_router, prefix="/api", tags=["leagues"])
 app.include_router(users_router, prefix="/api", tags=["users"])
+app.include_router(players_router, prefix="/api", tags=["players"])
 
 # Root endpoints
 @app.get("/", tags=["root"])
